@@ -1,0 +1,6 @@
+[run]
+source = practica_flask
+omit = 
+    tests/*
+    autoapp.py
+

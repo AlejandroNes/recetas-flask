@@ -1,0 +1,4 @@
+{% extends 'layout.html' %}{% from 'inventory/macros.html' import fields %}
+{% block content %}
+<div class="auth-shell"><section class="auth-intro"><a class="brand" href="{{ url_for('public.home') }}"><span class="brand-mark" aria-hidden="true">mc</span><span>Mesa Clara</span></a><div><h1>Todo empieza con una buena base.</h1><p>Crea tu cuenta y empieza a organizar los ingredientes de tu cocina.</p></div><div class="auth-lines"><span>Una cuenta por persona</span><span>Una cocina compartida</span></div></section><section class="auth-form"><h2>Crea tu cuenta</h2><p>Elige un usuario y una contraseña de al menos 8 caracteres.</p><form method="post" id="registerForm">{{ fields(form) }}<button class="btn btn-primary w-100" type="submit">Crear cuenta</button></form><p class="auth-switch">¿Ya tienes cuenta? <a href="{{ url_for('public.login') }}">Iniciar sesión</a></p></section></div>
+{% endblock %}

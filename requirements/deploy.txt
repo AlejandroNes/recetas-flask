@@ -1,0 +1,6 @@
+-r prod.txt
+
+# Optional Docker production process management
+gevent>=25.9.1
+gunicorn>=23
+supervisor>=4.2.5

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mesa Clara: ingredientes, recetas y control de cocina.">
+  <title>{{ title|default('Cocina') }} | Mesa Clara</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='build/main_css.bundle.css') }}">
+</head>
+<body>
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+{% if current_user.is_authenticated %}
+<aside class="sidebar">
+  <a class="brand" href="{{ url_for('inventory.dashboard') }}"><span class="brand-mark" aria-hidden="true">mc</span><span>Mesa Clara<small>Gestión de cocina</small></span></a>
+  <nav aria-label="Navegación principal">
+  {% for endpoint,label,icon in [('inventory.dashboard','Vista general','fa-house'),('inventory.ingredients','Despensa','fa-seedling'),('inventory.categories','Categorías','fa-layer-group'),('inventory.dishes','Platos y recetas','fa-utensils'),('inventory.movements','Movimientos','fa-right-left')] %}
+    <a href="{{ url_for(endpoint) }}" class="nav-item {% if request.endpoint == endpoint %}selected{% endif %}" {% if request.endpoint == endpoint %}aria-current="page"{% endif %}><i class="fa-solid {{ icon }}" aria-hidden="true"></i>{{ label }}</a>
+  {% endfor %}
+  </nav>
+  <div class="sidebar-bottom"><div class="user-name"><i class="fa-regular fa-circle-user" aria-hidden="true"></i> {{ current_user.username }}</div><form method="post" action="{{ url_for('public.logout') }}">{{ action_form.hidden_tag() }}<button class="logout" type="submit">Cerrar sesión</button></form><small>Una cocina bien organizada.</small></div>
+</aside>
+{% endif %}
+<div class="workspace {% if not current_user.is_authenticated %}guest{% endif %}">
+{% if current_user.is_authenticated %}<header class="topbar"><span>Mi espacio de cocina</span><span>{{ today.strftime('%d/%m/%Y') }}</span></header>{% endif %}
+<main id="contenido" tabindex="-1">
+{% with messages=get_flashed_messages(with_categories=true) %}{% for category,message in messages %}<div class="alert alert-{{ category }}" role="alert">{{ message }}</div>{% endfor %}{% endwith %}
+{% block content %}{% endblock %}
+</main>
+<footer class="page-footer">Mesa Clara <span>Ingredientes que cuentan. Recetas que funcionan.</span></footer>
+</div>
+<script src="{{ url_for('static', filename='build/main_js.bundle.js') }}" defer></script>
+</body></html>

@@ -1,0 +1,13 @@
+{% macro fields(form) %}
+{{ form.hidden_tag() }}
+{% for field in form if field.type not in ['CSRFTokenField','HiddenField','SubmitField'] %}
+<div class="field">{{ field.label(class_='form-label') }}{{ field(class_='form-select' if field.type=='SelectField' else 'form-control', **{'aria-invalid':'true' if field.errors else 'false'}) }}{% for error in field.errors %}<div class="field-error" role="alert">{{ error }}</div>{% endfor %}</div>
+{% endfor %}
+{% endmacro %}
+{% macro toggle(row, kind) %}
+<form class="inline-form" method="post" action="{{ url_for('inventory.toggle', kind=kind, identifier=row.id) }}">{{ action_form.hidden_tag() }}<button type="submit" class="text-button">{{ 'Desactivar' if row.activo else 'Activar' }}</button></form>
+{% endmacro %}
+{% macro status(row) %}<span class="status {{ 'ok' if row.activo else 'muted' }}">{{ 'Activo' if row.activo else 'Inactivo' }}</span>{% endmacro %}
+{% macro movement_table(rows) %}
+<div class="table-responsive"><table class="table"><thead><tr><th>Fecha</th><th>Ingrediente</th><th>Movimiento</th><th class="number">Cantidad</th><th>Motivo</th><th>Usuario</th></tr></thead><tbody>{% for row in rows %}<tr><td class="nowrap">{{ row.fecha|localtime }}</td><td>{{ row.ingrediente.nombre }}</td><td><span class="status {{ 'ok' if row.tipo=='entrada' else 'info' }}">{{ row.tipo|capitalize }}</span></td><td class="number">{{ row.cantidad|qty }} {{ row.ingrediente.unidad_medida }}</td><td>{{ row.motivo }}</td><td>{{ row.usuario.username }}</td></tr>{% else %}<tr><td colspan="6" class="empty">Aún no hay movimientos. Registra una entrada para abastecer tu cocina.</td></tr>{% endfor %}</tbody></table></div>
+{% endmacro %}

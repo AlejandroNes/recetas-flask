@@ -1,0 +1,4 @@
+{% extends 'layout.html' %}{% from 'inventory/macros.html' import fields %}
+{% block content %}
+<div class="auth-shell"><section class="auth-intro"><a class="brand" href="{{ url_for('public.home') }}"><span class="brand-mark" aria-hidden="true">mc</span><span>Mesa Clara</span></a><div><h1>El orden también es parte de la receta.</h1><p>Tu despensa, tus platos y cada movimiento de tu cocina, en un solo lugar.</p></div><div class="auth-lines" aria-hidden="true"><span>Despensa</span><span>Recetas</span><span>Control</span></div></section><section class="auth-form"><h2>Bienvenido a tu cocina</h2><p>Inicia sesión para continuar.</p><form method="post" id="loginForm">{{ fields(form) }}<button class="btn btn-primary w-100" type="submit">Iniciar sesión</button></form><p class="auth-switch">¿Es tu primera visita? <a href="{{ url_for('public.register') }}">Crear cuenta</a></p></section></div>
+{% endblock %}

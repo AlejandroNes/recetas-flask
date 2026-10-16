@@ -1,0 +1,2 @@
+{% extends 'layout.html' %}{% from 'inventory/macros.html' import fields %}
+{% block content %}<a class="back-link" href="{{ back }}">Volver al listado</a><div class="page-heading"><div><h1>{{ title }}</h1>{% if note %}<p>{{ note }}</p>{% endif %}</div></div><section class="form-panel"><form method="post">{{ fields(form) }}<div class="form-actions"><button type="submit" class="btn btn-primary">Guardar</button><a class="btn btn-outline-secondary" href="{{ back }}">Cancelar</a></div></form></section>{% endblock %}
