@@ -5,7 +5,7 @@
 factory-boy==3.3.3
 pytest>=9,<10
 pytest-cov==6.2.1
-WebTest==3.0.6
+WebTest==3.0.7
 
 # Lint and code style
 black>=26,<27
