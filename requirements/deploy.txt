@@ -2,5 +2,5 @@
 
 # Optional Docker production process management
 gevent>=25.9.1
-gunicorn>=23
+gunicorn>=26.2.0
 supervisor>=4.2.5
